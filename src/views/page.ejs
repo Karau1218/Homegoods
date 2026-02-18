@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Sustainably — Home Goods</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Optional: nicer serif headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+
+    <!-- Top Nav -->
+    <header class="topbar">
+        <nav class="nav container">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span class="brand-name">Sustainably</span>
+            </a>
+
+            <div class="nav-links" aria-label="Primary navigation">
+                <a href="/products">Shop</a>
+                <a href="#collections">Collections</a>
+                <a href="#mission">Mission</a>
+                <a href="#bestsellers">Best Sellers</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="nav-link" href="/login">Login</a>
+                <a class="button small" href="/register">Register</a>
+                <a class="icon-btn" href="/products" aria-label="Cart">
+          🛒
+        </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <main>
+        <section class="hero container">
+            <div class="hero-left">
+                <p class="eyebrow">Sustainable Home Goods</p>
+                <h1 class="hero-title">Simple essentials for a cleaner home.</h1>
+                <p class="hero-sub">
+                    Refillable, low-waste, and thoughtfully sourced products for everyday living — made to look good and last.
+                </p>
+
+                <div class="hero-cta">
+                    <a class="button primary" href="/products">Shop Now</a>
+                    <a class="button ghost" href="#mission">Our Mission</a>
+                </div>
+
+                <div class="hero-tags" aria-label="Highlights">
+                    <span class="tag">Plastic-light</span>
+                    <span class="tag">Refillable</span>
+                    <span class="tag">Low-tox</span>
+                    <span class="tag">Made to last</span>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="hero-photo">
+                    <!-- Replace these with your own images in /public/images -->
+                    <img src="/images/hero.jpg" alt="Minimal sustainable home goods on a bright counter" onerror="this.src='/images/home.webp'" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Collections Grid -->
+        <section id="collections" class="section container">
+            <div class="section-head">
+                <h2 class="section-title">Shop by collection</h2>
+                <p class="section-sub">A few focused categories to keep it simple and easy to browse.</p>
+            </div>
+
+            <div class="collections">
+                <a class="collection-card" href="/products">
+                    <div class="circle">
+                        <img src="/images/collection-kitchen.jpg" alt="Kitchen essentials" onerror="this.remove()">
+                    </div>
+                    <h3>Kitchen</h3>
+                    <p>Compostable sponges, glass storage, bamboo tools.</p>
+                </a>
+
+                <a class="collection-card" href="/products">
+                    <div class="circle">
+                        <img src="/images/collection-bath.jpg" alt="Bathroom essentials" onerror="this.remove()">
+                    </div>
+                    <h3>Bathroom</h3>
+                    <p>Refill soaps, reusable cotton rounds, minimalist trays.</p>
+                </a>
+
+                <a class="collection-card" href="/products">
+                    <div class="circle">
+                        <img src="/images/collection-cleaning.jpg" alt="Cleaning essentials" onerror="this.remove()">
+                    </div>
+                    <h3>Cleaning</h3>
+                    <p>Concentrates, reusable bottles, low-tox sprays.</p>
+                </a>
+
+                <a class="collection-card" href="/products">
+                    <div class="circle">
+                        <img src="/images/collection-living.jpg" alt="Living essentials" onerror="this.remove()">
+                    </div>
+                    <h3>Living</h3>
+                    <p>Natural candles, linen towels, calm decor basics.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Mission -->
+        <section id="mission" class="section container">
+            <div class="mission">
+                <div class="mission-text">
+                    <h2 class="section-title">Better materials. Less waste.</h2>
+                    <p class="section-sub">
+                        We prioritize refill systems, durable materials, and minimal packaging so your home stays clean without extra clutter.
+                    </p>
+
+                    <ul class="checklist">
+                        <li><span class="check">✓</span> Refillable + reusable options</li>
+                        <li><span class="check">✓</span> Curated “buy less, buy better” catalog</li>
+                        <li><span class="check">✓</span> Clean design that fits your space</li>
+                    </ul>
+
+                    <a class="button primary" href="/products">Browse Products</a>
+                </div>
+
+                <div class="mission-photo">
+                    <img src="/images/mission.jpg" alt="Bright neutral sustainable products styled neatly" onerror="this.src='/images/home.webp'" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Sellers -->
+        <section id="bestsellers" class="section container">
+            <div class="section-head">
+                <h2 class="section-title">Best sellers</h2>
+                <p class="section-sub">Sample products for now (we’ll swap these with real DB data later).</p>
+            </div>
+
+            <div class="products">
+                <article class="product-card">
+                    <div class="product-img">
+                        <img src="/images/p1.jpg" alt="Refillable glass soap dispenser" onerror="this.src='/images/home.webp'" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Refillable Glass Soap Dispenser</h3>
+                        <p class="price">$18.00</p>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-img">
+                        <img src="/images/p2.jpg" alt="Compostable dish brush set" onerror="this.src='/images/home.webp'" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Compostable Dish Brush Set</h3>
+                        <p class="price">$14.00</p>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-img">
+                        <img src="/images/p3.jpg" alt="Linen kitchen towel set" onerror="this.src='/images/home.webp'" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Linen Kitchen Towels (2-Pack)</h3>
+                        <p class="price">$24.00</p>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-img">
+                        <img src="/images/p4.jpg" alt="All-purpose cleaning concentrate" onerror="this.src='/images/home.webp'" />
+                    </div>
+                    <div class="product-info">
+                        <h3>All-Purpose Cleaning Concentrate</h3>
+                        <p class="price">$12.00</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-inner">
+                <div>
+                    <div class="footer-brand">Sustainably</div>
+                    <p class="footer-muted">Minimal, bright, low-waste home goods.</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="/products">Shop</a>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+</body>
+
+</html>
