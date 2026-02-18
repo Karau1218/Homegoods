@@ -10,9 +10,8 @@ router.get("/", (req, res) => {
 
 router.get("/products", async (req, res) => {
   try {
-    // Fetch all products from the SQL table
     const [rows] = await db.query("SELECT * FROM products");
-    res.render("products", { products: rows }); // pass data to EJS
+    res.render("products", { products: rows }); 
   } catch (err) {
     console.error(err);
     res.status(500).send("Database error");
@@ -20,7 +19,4 @@ router.get("/products", async (req, res) => {
 });
 
 
-
-
-
-export default router
+export default router;

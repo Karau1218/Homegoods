@@ -2,9 +2,10 @@ import mysql from "mysql2/promise";
 
 const db = mysql.createPool({
   host: "localhost",
-  user: "your_user",
-  password: "your_password",
-  database: "your_db_name"
+  user: "root",          
+  password: "Passion1218!",          
+  database: "Homegoods" 
 });
 
 export default db;
+// RESTful Four
