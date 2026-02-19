@@ -49,9 +49,9 @@ VALUES ('Stainless Steel Leakproof Lunch Box',
         27.50);
 
 INSERT INTO products (productName, productDescription, price)
-VALUES ('Ceramic Dinner Plates - Set of 4',
+VALUES ('Ceramic Dinner Plates - Set of 12',
         'Minimalist ceramic plates made using sustainable practices.',
-        54.99);
+        84.99);
 
 INSERT INTO products (productName, productDescription, price)
 VALUES ('Natural Fiber Dish Brush',
@@ -89,7 +89,7 @@ VALUES ('Reusable Mesh Produce Bags - Set of 6',
         11.99);
 
 INSERT INTO products (productName, productDescription, price)
-VALUES ('Wooden Cooking Spoon Set - 3 Pieces',
+VALUES ('Wooden Cooking Spoon Set - 6 Pieces',
         'Solid wood spoons safe for non-stick cookware.',
         17.99);
 
