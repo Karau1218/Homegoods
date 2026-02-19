@@ -51,7 +51,7 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
     ```
 2. Navigate into the project directory:
     ```bash
-    cd Homegoods
+    cd Simply-Kitchen-and-Dining
     ```
 3. Install project dependencies:
     ```bash 
