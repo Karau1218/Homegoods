@@ -21,7 +21,7 @@
         <nav class="nav container">
             <a class="brand" href="/">
                 <span class="brand-mark" aria-hidden="true"></span>
-                <span class="brand-name">Sustainably</span>
+                <span class="brand-name">Simply Kitchenware & Dining</span>
             </a>
 
             <div class="nav-links" aria-label="Primary navigation">
@@ -45,10 +45,10 @@
     <main>
         <section class="hero container">
             <div class="hero-left">
-                <p class="eyebrow">Sustainable Home Goods</p>
+                <p class="eyebrow">Sustainable Kitchenware & Dining</p>
                 <h1 class="hero-title">Simple essentials for a cleaner home.</h1>
                 <p class="hero-sub">
-                    Refillable, low-waste, and thoughtfully sourced products for everyday living — made to look good and last.
+                    Reuseable, low-waste, and thoughtfully sourced products for everyday living — made to look good and last.
                 </p>
 
                 <div class="hero-cta">
@@ -58,7 +58,7 @@
 
                 <div class="hero-tags" aria-label="Highlights">
                     <span class="tag">Plastic-light</span>
-                    <span class="tag">Refillable</span>
+                    <span class="tag">Compostable</span>
                     <span class="tag">Low-tox</span>
                     <span class="tag">Made to last</span>
                 </div>
@@ -66,53 +66,52 @@
 
             <div class="hero-right">
                 <div class="hero-photo">
-                    <!-- Replace these with your own images in /public/images -->
-                    <img src="/images/hero.jpg" alt="Minimal sustainable home goods on a bright counter" onerror="this.src='/images/home.webp'" />
+                    <img src="/images/kitchenware.png" alt="Minimal sustainable home goods on a bright counter" onerror="this.src='/images/kitchenware.webp'" />
                 </div>
             </div>
         </section>
 
-        <!-- Collections Grid -->
-        <section id="collections" class="section container">
+            <!-- Collections Grid -->
+            
             <div class="section-head">
-                <h2 class="section-title">Shop by collection</h2>
-                <p class="section-sub">A few focused categories to keep it simple and easy to browse.</p>
-            </div>
+        <h2 class="section-title">Shop by collection</h2>
+        <p class="section-sub">Kitchen & Dining categories</p>
+    </div>
 
-            <div class="collections">
-                <a class="collection-card" href="/products">
-                    <div class="circle">
-                        <img src="/images/collection-kitchen.jpg" alt="Kitchen essentials" onerror="this.remove()">
-                    </div>
-                    <h3>Kitchen</h3>
-                    <p>Compostable sponges, glass storage, bamboo tools.</p>
-                </a>
+    <div class="collections">
+    <a class="collection-card" href="/products?collection=food-storage">
+        <div class="circle">
+        <img src="/images/collection-storage.jpg" alt="Food storage" onerror="this.remove()">
+        </div>
+        <h3>Food Storage</h3>
+        <p>Glass containers, silicone bags, beeswax wraps.</p>
+    </a>
 
-                <a class="collection-card" href="/products">
-                    <div class="circle">
-                        <img src="/images/collection-bath.jpg" alt="Bathroom essentials" onerror="this.remove()">
-                    </div>
-                    <h3>Bathroom</h3>
-                    <p>Refill soaps, reusable cotton rounds, minimalist trays.</p>
-                </a>
+    <a class="collection-card" href="/products?collection=cooking-tools">
+        <div class="circle">
+        <img src="/images/collection-tools.jpg" alt="Cooking tools" onerror="this.remove()">
+        </div>
+        <h3>Cooking Tools</h3>
+        <p>Cutting boards, wooden spoons, dish brushes, sponges.</p>
+    </a>
 
-                <a class="collection-card" href="/products">
-                    <div class="circle">
-                        <img src="/images/collection-cleaning.jpg" alt="Cleaning essentials" onerror="this.remove()">
-                    </div>
-                    <h3>Cleaning</h3>
-                    <p>Concentrates, reusable bottles, low-tox sprays.</p>
-                </a>
+    <a class="collection-card" href="/products?collection=dining-serveware">
+        <div class="circle">
+        <img src="/images/collection-dining.webp" alt="Dining and serveware" onerror="this.remove()">
+        </div>
+        <h3>Dining & Serveware</h3>
+        <p>Plates, salad bowls, pitchers, placemats.</p>
+    </a>
 
-                <a class="collection-card" href="/products">
-                    <div class="circle">
-                        <img src="/images/collection-living.jpg" alt="Living essentials" onerror="this.remove()">
-                    </div>
-                    <h3>Living</h3>
-                    <p>Natural candles, linen towels, calm decor basics.</p>
-                </a>
-            </div>
-        </section>
+    <a class="collection-card" href="/products?collection=drinkware-on-the-go">
+        <div class="circle">
+        <img src="/images/collection-drinkware.jpg" alt="Drinkware and on-the-go" onerror="this.remove()">
+        </div>
+        <h3>Drinkware & On-the-Go</h3>
+        <p>Water bottles, lunch boxes, straws, coffee filters.</p>
+    </a>
+    </div>
+
 
         <!-- Mission -->
         <section id="mission" class="section container">
@@ -130,6 +129,8 @@
                     </ul>
 
                     <a class="button primary" href="/products">Browse Products</a>
+                    <!-- <a href="/products?collection=refillable">Shop Refillable Products</a> -->
+
                 </div>
 
                 <div class="mission-photo">

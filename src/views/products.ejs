@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Products — Sustainably</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <nav class="nav container">
+            <a class="brand" href="/">
+                <span class="brand-name">Simply Kitchenware & Dining</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/products">Shop</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container section">
+    <div class="section-head">
+        <h1 class="section-title">Shop All Products</h1>
+        <p class="section-sub">Eco-friendly kitchen essentials for a cleaner home.</p>
+    </div>
+
+    <div class="products">
+        <% products.forEach(product => { %>
+            <article class="product-card">
+                <div class="product-img">
+                    <img src="/images/home.webp" alt="<%= product.productname %>">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name"><%= product.productName %></h3>
+                    <p class="product-desc"><%= product.productDescription %></p>
+                    <p class="price">$<%= product.price %></p>
+                    <button class="button primary small">Add to Cart</button>
+                </div>
+            </article>
+        <% }) %>
+    </div>
+</main>
+</body>
+</html>
