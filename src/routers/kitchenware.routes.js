@@ -18,5 +18,23 @@ router.get("/products", async (req, res) => {
   }
 });
 
+router.get("/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id; 
+    
+    const [rows] = await db.query("SELECT * FROM products WHERE productId = ?", [id]);
+
+    if (rows.length === 0) {
+      return res.status(404).send("Product not found");
+    }
+
+    const product = rows[0];
+
+    res.render("product-detail", { product: product });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 export default router;

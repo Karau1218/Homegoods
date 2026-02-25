@@ -5,6 +5,7 @@
     <title>Shop Products — Sustainably</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/images/logo.webp" type="image/webp">
 </head>
 <body>
 
@@ -26,21 +27,29 @@
         <p class="section-sub">Eco-friendly kitchen essentials for a cleaner home.</p>
     </div>
 
-    <div class="products">
-        <% products.forEach(product => { %>
-            <article class="product-card">
-                <div class="product-img">
-                    <img src="/images/home.webp" alt="<%= product.productname %>">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name"><%= product.productName %></h3>
-                    <p class="product-desc"><%= product.productDescription %></p>
-                    <p class="price">$<%= product.price %></p>
+   <div class="products">
+    <% products.forEach(product => { %>
+        <article class="product-card">
+            <div class="product-img">
+                <img src="/images/home.webp" alt="<%= product.productName %>">
+            </div>
+
+            <div class="product-info">
+                <h3 class="product-name"><%= product.productName %></h3>
+                <p class="product-desc"><%= product.productDescription %></p>
+                <p class="price">$<%= product.price %></p>
+                
+                <div class="card-actions">
                     <button class="button primary small">Add to Cart</button>
+                    
+                    <a href="/products/<%= product.productId %>" class="details-link">
+                        View Details 
+                    </a>
                 </div>
-            </article>
-        <% }) %>
-    </div>
+            </div>
+        </article>
+    <% }) %>
+</div>
 </main>
 </body>
 </html>

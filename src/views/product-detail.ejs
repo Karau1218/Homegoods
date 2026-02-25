@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= product.productName %> — Sustainably</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/images/logo.webp" type="image/webp">
+</head>
+<body>
+    <header class="topbar">
+        <nav class="nav container">
+            <a class="brand" href="/">Sustainably</a>
+            <a href="/products">← Back to Shop</a>
+        </nav>
+    </header>
+
+    <main class="container section">
+        <div class="product-detail-layout">
+            <div class="product-image-large">
+                <img src="/images/home.webp" alt="<%= product.productName %>">
+            </div>
+            
+            <div class="product-info-heavy">
+                <p class="eyebrow">Eco-Friendly Essentials</p>
+                <h1><%= product.productName %></h1>
+                <p class="price-large">$<%= product.price %></p>
+                
+                <div class="description">
+                    <h3>Description</h3>
+                    <p><%= product.productDescription %></p>
+                </div>
+
+                <button class="button primary">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

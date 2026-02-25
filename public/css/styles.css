@@ -547,3 +547,62 @@ body {
 .muted {
     color: #777;
 }
+
+/* Products details  */
+.details-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #666; /* A soft grey */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.details-link:hover {
+    color: #000; /* Darkens on hover */
+    text-decoration: underline;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+/* 1. Make the card a flex container */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensures all cards in a row are the same height */
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 2. Make the info section take up the remaining space */
+.product-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* This is the magic: it pushes the bottom content down */
+}
+
+/* 3. The description can have a fixed height OR just let it take space */
+.product-desc {
+    flex-grow: 1; /* This ensures the description area expands to fill gaps */
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 4. The container for your button and link */
+.card-actions {
+    margin-top: auto; /* Force this to the very bottom of the card */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid #f9f9f9;
+}
