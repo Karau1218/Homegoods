@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword           # root password
+      MYSQL_DATABASE: simplykitchen               # your database
+      MYSQL_USER: appuser                     # normal user
+      MYSQL_PASSWORD: ACfGZ0z28TWQ             # normal user password
+    volumes:
+      - ./mysql_data:/var/lib/mysql          # persist data
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./scripts/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+    ports:
+      - "3307:3306"                          # access from host
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8080:80"                            # access phpMyAdmin
