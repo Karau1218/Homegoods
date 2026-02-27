@@ -27,7 +27,7 @@ try {
         database: DB_DATABASE
     });
 
-    console.log(chalk.blue("Connected to database on localhost:3306"));
+    console.log(chalk.blue(`Connected to database on ${DB_HOST}:${DB_PORT}`));
 
     app.get("/products", async (req, res) => {
         //perform query
@@ -35,14 +35,18 @@ try {
             'SELECT productName, productDescription, price FROM products');
 
         res.status(200).json({
-            messsage: `Found ${products.length} records`,
+            message: `Found ${products.length} records`,
             products: products
         })
     });
 
 } catch (err) {
-    console.log(chalk.red(`Something went wrong: ${err}`));
+    console.log(chalk.red("Something went wrong:"), err.message);
+    console.error(err.stack);
 }
 
 // Start server
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+const port = process.env.PORT || 8002;
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${PORT}`)
+});
