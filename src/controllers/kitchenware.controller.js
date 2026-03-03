@@ -14,15 +14,24 @@ export async function showProducts(req, res) {
   }
 }
 
+//for fetch
+export async function getApiProducts(req, res) {
+    try {
+        const { category, search } = req.query;
+        const products = await getAllProducts(category, search);
+        return res.json(products);
+    } catch (err) {
+        return res.status(500).json({ error: "API Database error" });
+    }
+}
+
 export async function showProductDetail(req, res) {
   try {
     const product = await getProductById(req.params.id);
 
     if (!product)
-      return res.status(404).send("Product not found");
-
+    return res.status(404).send("Product not found");
     return res.render("product-detail", { product });
-
   } catch (err) {
     console.error(err);
     return res.status(500).send("Internal Server Error");

@@ -1,5 +1,5 @@
 import express from 'express';
-import defaultRouter from './routers/kitchenware.routes.js';
+import kitchenwareRoutes from "./routers/kitchenware.routes.js";
 
 //configure Express.js app
 const app = express();
@@ -16,6 +16,5 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //routers
-app.use("/", defaultRouter);
-
+app.use("/", kitchenwareRoutes);
 export default app;
