@@ -73,7 +73,7 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
     ```
 6. Open the application in your browser:
     ```bash
-    http://localhost:3000
+    http://localhost:8002
     ```
 
 ## Application Routes
