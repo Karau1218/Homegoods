@@ -37,10 +37,15 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
 ## Technology Stack
 - Node.js
 - Express.js
-- EJS templating
 - MySQL
+- MVC architecture 
+##### Frontend
+- EJS templating
 - CSS (Flexbox/Grid)
+##### Tools
 - Git & GitHub for version control
+- Nodemon
+- Docker (MySQL container)
 
 ---
 
@@ -70,3 +75,17 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
     ```bash
     http://localhost:3000
     ```
+
+## Application Routes
+
+| Route | Description |
+|------|-------------|
+| `/` | Home page |
+| `/products` | Displays the full product catalog |
+| `/products/:id` | Displays the detail page for a single product |
+
+## API Endpoints
+
+| Endpoint | Description |
+|---------|-------------|
+| `/api/products` | Returns product data as JSON |

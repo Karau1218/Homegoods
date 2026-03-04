@@ -33,8 +33,6 @@ export async function showProducts(req, res) {
   }
 }
 
-
-
 export async function showProductDetail(req, res) {
   try {
     const product = await getProductById(req.params.id);

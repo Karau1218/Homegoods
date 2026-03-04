@@ -1,4 +1,3 @@
-// services/kitchenware.service.js
 import db from "../db.js";
 
 export async function getAllProducts({
@@ -35,11 +34,21 @@ export async function getAllProducts({
     params.push(Number(maxPrice));
   }
 
-  // safe sorting (avoid SQL injection)
   if (sort === "price") query += " ORDER BY price ASC";
   else if (sort === "price_desc") query += " ORDER BY price DESC";
   else query += " ORDER BY productName ASC";
 
   const [rows] = await db.query(query, params);
-  return rows; // empty array is fine
+  return rows;
+}
+
+export async function getProductById(id) {
+  const [rows] = await db.query(
+    `SELECT productId, productName, productDescription, price, category, imageUrl
+     FROM products
+     WHERE productId = ?`,
+    [id]
+  );
+
+  return rows[0] || null;
 }

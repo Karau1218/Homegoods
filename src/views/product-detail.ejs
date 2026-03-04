@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title><%= product.productName %> — Sustainably</title>
+    <title>
+        <%= product.productName %> — Sustainably
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="/images/logo.webp" type="image/webp">
 </head>
+
 <body>
     <header class="topbar">
         <nav class="nav container">
-            <a class="brand" href="/">Sustainably</a>
-            <a href="/products">← Back to Shop</a>
+            <a class="brand" href="/">
+                <img src="/images/logo.webp" id="logo" alt="logo">
+                <span class="brand-name">Simply Kitchenware & Dining</span>
+            </a>
+
+            <div class="nav-links" aria-label="Primary navigation">
+                <a href="/products">Shop</a>
+                <a href="/#collections">Collections</a>
+                <a href="/#mission">Mission</a>
+                <a href="/#bestsellers">Best Sellers</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="nav-link" href="#login">Login</a>
+                <a class="button small" href="#register">Register</a>
+                <a class="icon-btn" href="#cart" aria-label="Cart">🛒</a>
+            </div>
         </nav>
     </header>
 
@@ -19,16 +44,23 @@
             <div class="product-image-large">
                 <img src="<%= product.imageUrl %>" alt="<%= product.productName %>">
             </div>
-            
+
             <div class="product-info-heavy">
                 <p class="eyebrow">Eco-Friendly Essentials</p>
-                <p class="tag"><%= product.category %></p>
-                <h1><%= product.productName %></h1>
-                <p class="price-large">$<%= product.price %></p>
-                
+                <span class="tag">
+                    <%= product.category %>
+                </span>
+                <h1>
+                    <%= product.productName %>
+                </h1>
+                <p class="price-large">$<%= product.price %>
+                </p>
+
                 <div class="description">
                     <h3>Description</h3>
-                    <p><%= product.productDescription %></p>
+                    <p>
+                        <%= product.productDescription %>
+                    </p>
                 </div>
 
                 <button class="button primary">Add to Cart</button>
@@ -36,4 +68,5 @@
         </div>
     </main>
 </body>
+
 </html>
