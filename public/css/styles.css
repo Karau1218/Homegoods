@@ -623,3 +623,20 @@ body {
     padding-top: 15px;
     border-top: 1px solid #f9f9f9;
 }
+.filter-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    background: rgba(247, 244, 238, 0.72);
+    padding: 20px;
+    border-radius: 12px;
+    color: black;
+}
+
+.filter-group input, .filter-group select {
+    background:  rgba(247, 244, 238, 0.72);
+    color: black;
+    border: 1px solid #4a5568;
+    padding: 8px 12px;
+    border-radius: 6px;
+}

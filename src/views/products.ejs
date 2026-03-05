@@ -8,9 +8,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="/images/logo.webp" type="image/webp">
 </head>
@@ -45,35 +44,63 @@
             <p class="section-sub">Eco-friendly kitchen essentials for a cleaner home.</p>
         </div>
 
-        <div class="products" id="products">
-            <% products.forEach(product=> { %>
+        <section class="filter-bar">
+            <div class="filter-group">
+                <label for="product-search">Search</label>
+                <input type="text" id="product-search" placeholder="Search name or description...">
+            </div>
+
+            <div class="filter-group">
+                <label for="category-filter">Category</label>
+                <select id="category-filter">
+                    <option value="">All</option>
+                    <option value="food-storage">Food Storage</option>
+                    <option value="cooking-tools">Cooking Tools</option>
+                    <option value="dining-serveware">Dining & Serveware</option>
+                    <option value="drinkware">Drinkware</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="sort-filter">Sort</label>
+                <select id="sort-filter">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
+
+            <button id="clear-filters" class="button ghost small">Clear</button>
+
+            <div class="product-status">
+                Showing <span id="product-count"><%= products.length %></span> products
+            </div>
+        </section>
+
+        <hr class="divider" style="margin: 2rem 0; opacity: 0.2;">
+
+        <div class="products" id="products-grid">
+            <% products.forEach(product => { %>
                 <article class="product-card">
                     <div class="product-img">
                         <img src="<%= product.imageUrl %>" alt="<%= product.productName %>">
                     </div>
 
                     <div class="product-info">
-                        <h3 class="product-name">
-                            <%= product.productName %>
-                        </h3>
-                        <p class="product-desc">
-                            <%= product.productDescription %>
-                        </p>
-                        <p class="price">$<%= product.price %>
-                        </p>
+                        <h3 class="product-name"><%= product.productName %></h3>
+                        <p class="product-desc"><%= product.productDescription %></p>
+                        <p class="price">$<%= product.price %></p>
 
                         <div class="card-actions">
                             <button class="button primary small">Add to Cart</button>
-
-                            <a href="/products/<%= product.productId %>" class="details-link">
-                                View Details
-                            </a>
+                            <a href="/products/<%= product.productId %>" class="details-link">View Details</a>
                         </div>
                     </div>
                 </article>
-                <% }) %>
+            <% }) %>
         </div>
     </main>
-</body>
 
+    <script src="/js/search.js"></script>
+</body>
 </html>
