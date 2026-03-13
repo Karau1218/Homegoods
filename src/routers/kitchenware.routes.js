@@ -14,9 +14,11 @@ router.get("/", showHome)
 router.get("/register", showRegister)
 router.get("/login", showLogin)
 
-router.get("/products", showProducts)
-router.get("/api/products", requireAuthPage, getApiProducts)
+router.get("/products", requireAuthPage, showProducts)
 router.get("/products/:id", requireAuthPage, showProductDetail)
+
+// router.get("/api/products", requireAuthPage, getApiProducts)
+
 
 // protected API
 router.get("/api/products", requireAuthApi, getApiProducts)

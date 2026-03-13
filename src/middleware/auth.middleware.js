@@ -8,8 +8,9 @@ export function requireAuthPage(req, res, next) {
 
 export function requireAuthApi(req, res, next) {
  if (req.session && req.session.user) {
-  return next()
+    return next()
  }
 
- return res.status(401).json({ error: "Unauthorized" })
+//  return res.status(401).json({ error: "Unauthorized" })
+    return res.redirect("/login");
 }

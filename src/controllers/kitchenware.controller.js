@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { getAllProducts, getProductById, getBestSellers } from "../services/kitchenware.service.js"
 
 export async function showHome(req, res) {
@@ -75,24 +76,44 @@ export function showLogin(req, res) {
   return res.render("login")
 }
 
-export function loginUser(req, res) {
-  req.session.user = {
-    email: req.body.email
-  }
+export async function registerUser(req, res) {
+    try {
+        const { email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-  return res.redirect("/products")
+        req.session.user = { email };
+        return res.redirect("/products");
+    } catch (err) {
+        return res.render("register", { error: "Registration failed." });
+    }
 }
+
+// export function loginUser(req, res) {
+//   req.session.user = {
+//     email: req.body.email
+//   }
+//   return res.redirect("/products")
+// }
+export async function loginUser(req, res) {
+    try {
+        const { email, password } = req.body;
+        
+        if (email && password) {
+            req.session.user = { email };
+            return res.redirect("/products");
+        }
+        return res.render("login", { error: "Invalid credentials" });
+    } catch (err) {
+        return res.status(500).send("Login error");
+    }
+}
+
 
 export function logoutUser(req, res) {
-  req.session.destroy(() => {
-    res.redirect("/login")
-  })
+
+req.session.destroy((err) => {
+        if (err) console.error("Logout error:", err);
+        return res.redirect("/"); 
+    });
 }
 
-export function registerUser(req, res) {
-  req.session.user = {
-    email: req.body.email
-  }
-
-  return res.redirect("/products")
-}
