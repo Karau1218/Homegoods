@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { getAllProducts, getProductById, getBestSellers } from "../services/kitchenware.service.js"
+import { getAllProducts, getProductById, getBestSellers, getUserByEmail, createUser } from "../services/kitchenware.service.js"
 
 export async function showHome(req, res) {
   try {
@@ -81,30 +81,38 @@ export async function registerUser(req, res) {
         const { email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        req.session.user = { email };
+        const userId = await createUser(email, hashedPassword);
+
+        req.session.userId = userId; 
+        
         return res.redirect("/products");
     } catch (err) {
-        return res.render("register", { error: "Registration failed." });
+        console.error("Registration error:", err);
+        return res.render("register", { error: "Email already registered or registration failed." });
     }
 }
 
-// export function loginUser(req, res) {
-//   req.session.user = {
-//     email: req.body.email
-//   }
-//   return res.redirect("/products")
-// }
+
 export async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
-        
-        if (email && password) {
-            req.session.user = { email };
-            return res.redirect("/products");
+        const user = await getUserByEmail(email);
+
+        if (user) {
+            const isMatch = await bcrypt.compare(password, user.password_hash);
+            
+            if (isMatch) {
+                // SUCCESS: Create session
+                req.session.userId = user.id;
+                return res.redirect("/products");
+            }
         }
-        return res.render("login", { error: "Invalid credentials" });
+        
+        // If we get here, login failed. Re-render with error message.
+        return res.render("login", { error: "Invalid email or password" });
     } catch (err) {
-        return res.status(500).send("Login error");
+        console.error(err);
+        return res.status(500).send("Server Error");
     }
 }
 

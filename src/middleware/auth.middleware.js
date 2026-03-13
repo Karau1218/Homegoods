@@ -1,5 +1,5 @@
 export function requireAuthPage(req, res, next) {
- if (req.session && req.session.user) {
+ if (req.session && req.session.userId) {
   return next()
  }
 
@@ -7,10 +7,9 @@ export function requireAuthPage(req, res, next) {
 }
 
 export function requireAuthApi(req, res, next) {
- if (req.session && req.session.user) {
+ if (req.session && req.session.userId) {
     return next()
  }
 
-//  return res.status(401).json({ error: "Unauthorized" })
     return res.redirect("/login");
 }
