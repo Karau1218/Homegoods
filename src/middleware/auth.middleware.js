@@ -3,7 +3,7 @@ export function requireAuthPage(req, res, next) {
   return next()
  }
 
- return res.redirect("/login")
+ return res.redirect("/login");
 }
 
 export function requireAuthApi(req, res, next) {
@@ -11,5 +11,5 @@ export function requireAuthApi(req, res, next) {
     return next()
  }
 
-    return res.redirect("/login");
+    return res.status(401).json({ error: "unauthorized"});
 }

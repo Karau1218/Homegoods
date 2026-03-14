@@ -11,6 +11,7 @@ import { requireAuthPage, requireAuthApi } from "../middleware/auth.middleware.j
 const router = Router()
 
 router.get("/", showHome)
+
 router.get("/register", showRegister)
 router.get("/login", showLogin)
 
@@ -25,6 +26,6 @@ router.get("/api/products", requireAuthApi, getApiProducts)
 
 router.post("/register", registerUser)
 router.post("/login", loginUser)
-router.post("/logout", logoutUser)
+router.get("/logout", logoutUser)
 
 export default router
