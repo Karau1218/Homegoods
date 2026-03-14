@@ -103,7 +103,7 @@ export async function loginUser(req, res) {
             
             if (isMatch) {
                 // SUCCESS: Create session
-                req.session.userId = user.id;
+                req.session.userId = user.userId;
                 return res.redirect("/products");
             }
         }
