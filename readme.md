@@ -1,6 +1,6 @@
 # Simply Kitchen and Dining
 
-#### Sustainable Kitchware and Dining Retailer
+#### Sustainable Kitchenware and Dining Retailer
 Web Frameworks Capstone Project
 
 Team Members: 
@@ -50,7 +50,7 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
 ---
 
 ## Setup Instructions
-1. **Clone the repository:**
+1. Clone the repository:
     ```bash
     git clone <repository-url>
     ```
@@ -62,19 +62,30 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
     ```bash 
     npm install 
     ```
-4. Set up the database
+4. Create a `.env` file in the root directory:
+    ```
+    PORT=8002
+    DB_DATABASE=simplykitchen
+    DB_HOST=localhost
+    DB_PORT=3307
+    DB_USER=[user]
+    DB_PASSWORD=[password]
+    ```
+5. Set up the database
     - Create a MySQL database
     - Run the SQL scripts located in the `/scripts` directory in this order:
         - `schema.sql`
         - `seed.sql`
-5. Start development server:
+6. Start development server:
     ```bash
     npm run dev
     ```
-6. Open the application in your browser:
+7. Open the application in your browser:
     ```bash
     http://localhost:8002
     ```
+
+---
 
 ## Application Routes
 
@@ -89,3 +100,46 @@ Examples include cooking utensils, food storage solutions, tableware, and hostin
 | Endpoint | Description |
 |---------|-------------|
 | `/api/products` | Returns product data as JSON |
+
+## Public Pages 
+- `/`
+- `/register`
+- `/login`
+
+## Protected Pages
+- `/products`
+- `/products/:id`
+- `/cart`
+- All `/api/*` endpoints related to cart behavior
+
+---
+
+## Cart API
+```
+GET /api/cart
+POST /api/cart/items
+PATCH /api/cart/items/:productId/decrease
+DELETE /api/cart/items/:productId
+DELETE /api/cart 
+````
+All cart endpoints require authentication.
+
+---
+
+## Session-Based Cart Model
+The cart is stored in `req.session.cart` (configured in `app.js` using express-session and managed in `cart.controller.js`). 
+
+Each item stores: 
+- `productId`
+- `quantity`
+
+Product details (name, price, image) are fetched dynamically when `/api/cart` is called. 
+
+--- 
+
+## Authentication 
+- Users can register and log in 
+- On login, `req.session.userId` is stored
+- Protected routes require authentication
+- Unauthorized API requests return `401`
+- Users can log out via `/logout`, which destroys the session
