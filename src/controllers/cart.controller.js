@@ -1,74 +1,124 @@
-export const getCart = (req, res) => {
+import { getProductById } from "../services/kitchenware.service.js";
 
-    if (!req.session.cart) {
-        req.session.cart = []
-    }
+/* Helper function to attach product details to cart items */
+const buildDetailedCart = async (cart) => {
+  const detailedItems = await Promise.all(
+    cart.map(async (item) => {
+      const product = await getProductById(item.productId);
 
-    res.json({ items: req.session.cart })
-}
+      if (!product) return null;
 
-export const addCartItem = (req, res) => {
-    const { productId } = req.body
-    if (!req.session.cart) {
-        req.session.cart = []
-    }
+      return {
+        productId: item.productId,
+        name: product.productName,
+        price: product.price,
+        image: product.imageUrl,
+        quantity: item.quantity,
+        subtotal: product.price * item.quantity
+      };
+    })
+  );
 
-    const existing = req.session.cart.find(
-        item => item.productId === productId
-    )
-    if (existing) {
-        existing.quantity += 1
-    } else {
-        req.session.cart.push({
-            productId,
-            quantity: 1
-        })
-    }
+  return detailedItems.filter(item => item !== null);
+};
 
-    res.json({ items: req.session.cart })
-}
 
-export const removeCartItem = (req, res) => {
-    const productId = parseInt(req.params.productId)
+/* Get Cart */
+export const getCart = async (req, res) => {
 
-    if (!req.session.cart) {
-        req.session.cart = []
-    }
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
 
+  const detailedItems = await buildDetailedCart(req.session.cart);
+
+  res.json({ items: detailedItems });
+};
+
+
+/* Add Item to Cart */
+export const addCartItem = async (req, res) => {
+
+  const { productId } = req.body;
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  const existing = req.session.cart.find(
+    item => Number(item.productId) === Number(productId)
+  );
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    req.session.cart.push({
+      productId: Number(productId),
+      quantity: 1
+    });
+  }
+
+  const detailedItems = await buildDetailedCart(req.session.cart);
+
+  res.json({ items: detailedItems });
+};
+
+
+/* Remove Item Completely */
+export const removeCartItem = async (req, res) => {
+
+  const productId = Number(req.params.productId);
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  req.session.cart = req.session.cart.filter(
+    item => Number(item.productId) !== productId
+  );
+
+  const detailedItems = await buildDetailedCart(req.session.cart);
+
+  res.json({ items: detailedItems });
+};
+
+
+/* Decrease Item Quantity */
+export const decreaseCartItem = async (req, res) => {
+
+  const productId = Number(req.params.productId);
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  const existingItem = req.session.cart.find(
+    item => Number(item.productId) === productId
+  );
+
+  if (!existingItem) {
+    const detailedItems = await buildDetailedCart(req.session.cart);
+    return res.json({ items: detailedItems });
+  }
+
+  existingItem.quantity -= 1;
+
+  if (existingItem.quantity <= 0) {
     req.session.cart = req.session.cart.filter(
-        item => item.productId !== productId
-    )
+      item => Number(item.productId) !== productId
+    );
+  }
 
-    res.json({ items: req.session.cart })
-}
+  const detailedItems = await buildDetailedCart(req.session.cart);
 
-export const clearCart = (req, res) => {
-    req.session.cart = []
-    res.json({ items: [] })
-}
+  res.json({ items: detailedItems });
+};
 
-export const decreaseCartItem = (req, res) => {
-    const productId = Number(req.params.productId)
 
-    if (!req.session.cart) {
-        req.session.cart = []
-    }
+/* Clear Entire Cart */
+export const clearCart = async (req, res) => {
 
-    const existingItem = req.session.cart.find(
-        (item) => Number(item.productId) === productId
-    )
+  req.session.cart = [];
 
-    if (!existingItem) {
-        return res.json({ items: req.session.cart })
-    }
-
-    existingItem.quantity -= 1
-
-    if (existingItem.quantity <= 0) {
-        req.session.cart = req.session.cart.filter(
-            (item) => Number(item.productId) !== productId
-        )
-    }
-
-    res.json({ items: req.session.cart })
-}
+  res.json({ items: [] });
+};

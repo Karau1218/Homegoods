@@ -10,7 +10,7 @@ router.post("/api/cart/items", requireAuthApi, addCartItem);
 
 router.delete("/api/cart/items/:productId", requireAuthApi, removeCartItem);
 
-router.post("/api/cart/clear", requireAuthApi, clearCart);
+router.delete("/api/cart", requireAuthApi, clearCart);
 
 router.patch("/api/cart/items/:productId/decrease", requireAuthApi, decreaseCartItem);
 

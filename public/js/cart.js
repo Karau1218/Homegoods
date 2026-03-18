@@ -1,5 +1,3 @@
-let cachedProducts = []
-
 async function fetchCart() {
     const response = await fetch("/api/cart")
 
@@ -64,8 +62,9 @@ async function addToCart(productId) {
         }
 
         const data = await response.json()
+        showCartNotice("Item added to cart")
         updateCartCount(data.items || [], true)
-        renderCartPage(data.items || [], cachedProducts)
+        renderCartPage(data.items || [])
     } catch (error) {
         console.error("Error adding to cart:", error)
     }
@@ -77,13 +76,18 @@ async function decreaseCartItem(productId) {
             method: "PATCH"
         })
 
+        if (response.status === 401) {
+            window.location.href = "/login"
+            return
+        }
+
         if (!response.ok) {
             throw new Error("Failed to decrease item")
         }
 
         const data = await response.json()
         updateCartCount(data.items || [], false)
-        renderCartPage(data.items || [], cachedProducts)
+        renderCartPage(data.items || [])
     } catch (error) {
         console.error("Error decreasing item:", error)
     }
@@ -95,13 +99,18 @@ async function removeFromCart(productId) {
             method: "DELETE"
         })
 
+        if (response.status === 401) {
+            window.location.href = "/login"
+            return
+        }
+
         if (!response.ok) {
             throw new Error("Failed to remove item")
         }
 
         const data = await response.json()
         updateCartCount(data.items || [], false)
-        renderCartPage(data.items || [], cachedProducts)
+        renderCartPage(data.items || [])
     } catch (error) {
         console.error("Error removing item:", error)
     }
@@ -109,9 +118,14 @@ async function removeFromCart(productId) {
 
 async function clearCart() {
     try {
-        const response = await fetch("/api/cart/clear", {
-            method: "POST"
+        const response = await fetch("/api/cart", {
+            method: "DELETE"
         })
+
+        if (response.status === 401) {
+            window.location.href = "/login"
+            return
+        }
 
         if (!response.ok) {
             throw new Error("Failed to clear cart")
@@ -119,20 +133,10 @@ async function clearCart() {
 
         const data = await response.json()
         updateCartCount(data.items || [], false)
-        renderCartPage(data.items || [], cachedProducts)
+        renderCartPage(data.items || [])
     } catch (error) {
         console.error("Error clearing cart:", error)
     }
-}
-
-async function getProducts() {
-    const response = await fetch("/api/products")
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch products")
-    }
-
-    return await response.json()
 }
 
 async function loadCartPage() {
@@ -140,17 +144,12 @@ async function loadCartPage() {
     if (!cartItemsContainer) return
 
     try {
-        const [cartData, productsData] = await Promise.all([
-            fetchCart(),
-            getProducts()
-        ])
+        const cartData = await fetchCart()
 
         if (!cartData) return
 
-        cachedProducts = productsData.products || productsData || []
-
         updateCartCount(cartData.items || [], false)
-        renderCartPage(cartData.items || [], cachedProducts)
+        renderCartPage(cartData.items || [])
     } catch (error) {
         console.error("Error loading cart page:", error)
 
@@ -161,57 +160,42 @@ async function loadCartPage() {
     }
 }
 
-// eslint-disable-next-line max-lines-per-function
-function renderCartPage(cartItems, products = []) {
-    const cartItemsContainer = document.getElementById("cart-items")
-    const cartMessage = document.getElementById("cart-message")
-    const cartSummary = document.getElementById("cart-summary")
-    const cartTotalItems = document.getElementById("cart-total-items")
-    const cartSubtotal = document.getElementById("cart-subtotal")
-
-    if (!cartItemsContainer) return
-
-    if (!cartItems.length) {
-        cartItemsContainer.innerHTML = ""
-        if (cartMessage) {
-            cartMessage.textContent = "Your cart is empty."
-        }
-        if (cartSummary) {
-            cartSummary.style.display = "none"
-        }
-        return
-    }
+function showEmptyCart(
+    cartItemsContainer,
+    cartMessage,
+    cartSummary,
+    cartTotalItems,
+    cartSubtotal
+) {
+    cartItemsContainer.innerHTML = ""
 
     if (cartMessage) {
-        cartMessage.textContent = ""
+        cartMessage.textContent = "Your cart is empty."
     }
 
-    const mergedItems = cartItems.map((cartItem) => {
-        const product = products.find(
-            (p) => Number(p.productId) === Number(cartItem.productId)
-        )
+    if (cartSummary) {
+        cartSummary.style.display = "none"
+    }
 
-        return {
-            ...cartItem,
-            productName: product ? product.productName : `Product #${cartItem.productId}`,
-            price: product ? product.price : 0,
-            imageUrl: product ? product.imageUrl : "",
-            category: product ? product.category : ""
-        }
-    })
+    if (cartTotalItems) {
+        cartTotalItems.textContent = "0"
+    }
 
-cartItemsContainer.innerHTML = mergedItems
-    .map(
-        (item) => `
+    if (cartSubtotal) {
+        cartSubtotal.textContent = "0.00"
+    }
+}
+
+function createCartItemHtml(item) {
+    return `
         <article class="product-card" style="margin-bottom: 1.5rem;">
             <div class="product-img">
-                ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.productName}">` : ""}
+                ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ""}
             </div>
 
             <div class="product-info">
-                <h3 class="product-name">${item.productName}</h3>
-                <p class="product-category">${item.category || ""}</p>
-                <p class="price">$${item.price}</p>
+                <h3 class="product-name">${item.name}</h3>
+                <p class="price">$${Number(item.price).toFixed(2)}</p>
 
                 <div class="cart-quantity">
                     <button
@@ -231,6 +215,8 @@ cartItemsContainer.innerHTML = mergedItems
                     </button>
                 </div>
 
+                <p>Item Total: $${Number(item.subtotal).toFixed(2)}</p>
+
                 <div class="card-actions">
                     <button
                         class="button ghost small remove-cart-item"
@@ -242,25 +228,52 @@ cartItemsContainer.innerHTML = mergedItems
             </div>
         </article>
     `
-    )
-    .join("")
+}
 
+function updateCartSummary(cartItems, cartTotalItems, cartSubtotal, cartSummary) {
     const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
-
-    const subtotal = mergedItems.reduce(
-    (sum, item) => sum + Number(item.price) * Number(item.quantity), 0)
+    const subtotal = cartItems.reduce((sum, item) => sum + Number(item.subtotal), 0)
 
     if (cartTotalItems) {
         cartTotalItems.textContent = totalItems
     }
 
     if (cartSubtotal) {
-    cartSubtotal.textContent = subtotal.toFixed(2)
+        cartSubtotal.textContent = subtotal.toFixed(2)
     }
 
     if (cartSummary) {
         cartSummary.style.display = "block"
     }
+}
+
+function renderCartPage(cartItems) {
+    const cartItemsContainer = document.getElementById("cart-items")
+    const cartMessage = document.getElementById("cart-message")
+    const cartSummary = document.getElementById("cart-summary")
+    const cartTotalItems = document.getElementById("cart-total-items")
+    const cartSubtotal = document.getElementById("cart-subtotal")
+
+    if (!cartItemsContainer) return
+
+    if (!cartItems.length) {
+        showEmptyCart(
+            cartItemsContainer,
+            cartMessage,
+            cartSummary,
+            cartTotalItems,
+            cartSubtotal
+        )
+        return
+    }
+
+    if (cartMessage) {
+        cartMessage.textContent = ""
+    }
+
+    cartItemsContainer.innerHTML = cartItems.map(createCartItemHtml).join("")
+
+    updateCartSummary(cartItems, cartTotalItems, cartSubtotal, cartSummary)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -297,3 +310,22 @@ document.addEventListener("click", (event) => {
         removeFromCart(removeButton.dataset.productId)
     }
 })
+
+function showCartNotice(message) {
+    let notice = document.getElementById("cart-notice")
+
+    if (!notice) {
+        notice = document.createElement("div")
+        notice.id = "cart-notice"
+        notice.className = "cart-notice"
+        document.body.appendChild(notice)
+    }
+
+    notice.textContent = message
+    notice.classList.add("show")
+
+    clearTimeout(showCartNotice.timeoutId)
+    showCartNotice.timeoutId = setTimeout(() => {
+        notice.classList.remove("show")
+    }, 2000)
+}

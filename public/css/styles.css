@@ -886,3 +886,24 @@ body {
         font-size: 2rem;
     }
 }
+
+.cart-notice {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #2f6f4f;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 9999;
+}
+
+.cart-notice.show {
+    opacity: 1;
+    transform: translateY(0);
+}
