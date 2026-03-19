@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt"
 import { getAllProducts, getProductById, getBestSellers, getUserByEmail, createUser } from "../services/kitchenware.service.js"
 
 export async function showHome(req, res) {
@@ -77,51 +77,51 @@ export function showLogin(req, res) {
 }
 
 export async function registerUser(req, res) {
-    try {
-        const { email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const { email, password } = req.body
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-        const userId = await createUser(email, hashedPassword);
+    const userId = await createUser(email, hashedPassword)
 
-        req.session.userId = userId; 
-        
-        return res.redirect("/products");
-    } catch (err) {
-        console.error("Registration error:", err);
-        return res.render("register", { error: "Email already registered or registration failed." });
-    }
+    req.session.userId = userId
+
+    return res.redirect("/login")
+  } catch (err) {
+    console.error("Registration error:", err)
+    return res.render("register", { error: "Email already registered or registration failed." })
+  }
 }
 
 
 export async function loginUser(req, res) {
-    try {
-        const { email, password } = req.body;
-        const user = await getUserByEmail(email);
+  try {
+    const { email, password } = req.body
+    const user = await getUserByEmail(email)
 
-        if (user) {
-            const isMatch = await bcrypt.compare(password, user.password_hash);
-            
-            if (isMatch) {
-                // SUCCESS: Create session
-                req.session.userId = user.userId;
-                return res.redirect("/products");
-            }
-        }
-        
-        // If we get here, login failed. Re-render with error message.
-        return res.render("login", { error: "Invalid email or password" });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send("Server Error");
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.password_hash)
+
+      if (isMatch) {
+        // SUCCESS: Create session
+        req.session.userId = user.userId
+        return res.redirect("/products")
+      }
     }
+
+    // If we get here, login failed. Re-render with error message.
+    return res.render("login", { error: "Invalid email or password" })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).send("Server Error")
+  }
 }
 
 export function logoutUser(req, res) {
 
-req.session.destroy((err) => {
-        if (err) console.error("Logout error:", err);
-        return res.redirect("/"); 
-    });
+  req.session.destroy((err) => {
+    if (err) console.error("Logout error:", err)
+    return res.redirect("/")
+  })
 }
 
 export const showCart = (req, res) => {

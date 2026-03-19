@@ -1,14 +1,14 @@
 import { Router } from "express"
 import {
-    showHome, 
-    showProducts, 
-    showProductDetail, 
-    getApiProducts, 
-    showRegister, 
-    showLogin, 
+    showHome,
+    showProducts,
+    showProductDetail,
+    getApiProducts,
+    showRegister,
+    showLogin,
     loginUser,
     logoutUser,
-    registerUser, 
+    registerUser,
     showCart
 } from "../controllers/kitchenware.controller.js"
 
@@ -24,7 +24,7 @@ router.get("/login", showLogin)
 
 router.get("/products", requireAuthPage, showProducts)
 router.get("/products/:id", requireAuthPage, showProductDetail)
-router.get("/cart", requireAuthPage, showCart);
+router.get("/cart", requireAuthPage, showCart)
 
 // router.get("/api/products", requireAuthPage, getApiProducts)
 
